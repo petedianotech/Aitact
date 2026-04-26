@@ -1,0 +1,10 @@
+{
+  "projectId": "aitact",
+  "appId": "1:112964551447:web:d8240147f26b02a3646d52",
+  "apiKey": "AIzaSyCP0K9xarYJkUVE1XyBco18B0YddOwzwtU",
+  "authDomain": "aitact.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-c00bc016-1f2e-4466-9fec-2acf17f708a9",
+  "storageBucket": "aitact.firebasestorage.app",
+  "messagingSenderId": "112964551447",
+  "measurementId": ""
+}

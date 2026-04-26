@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "Audit": {
+      "title": "Audit",
+      "description": "An audit of a high-stakes message.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User ID of the owner" },
+        "originalText": { "type": "string" },
+        "goal": { "type": "string", "enum": ["Professional", "Romantic", "Argument", "Negotiation"] },
+        "tone": { "type": "string" },
+        "socialRisk": { "type": "string" },
+        "culturalAudit": { "type": "string" },
+        "fixes": { "type": "string" },
+        "riskCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "originalText", "goal", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile and credits.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "credits": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "credits"]
+    }
+  },
+  "firestore": {
+    "/audits/{auditId}": {
+      "schema": { "$ref": "#/entities/Audit" },
+      "description": "Audits created by users."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles and credits."
+    }
+  }
+}
