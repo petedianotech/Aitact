@@ -107,7 +107,7 @@ export default function TactApp() {
     if (currentAudit?.fixes && navigator.share) {
       try {
         await navigator.share({
-          title: 'TACT - Audited Message',
+          title: 'AI TACT - Audited Message',
           text: currentAudit.fixes
         });
       } catch (err) {
@@ -127,9 +127,9 @@ export default function TactApp() {
       <header className="border-b border-white/10 p-6 flex justify-between items-center sticky top-0 bg-black/80 backdrop-blur-md z-40">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center font-display font-bold text-xl tracking-tighter">
-            T
+            AT
           </div>
-          <h1 className="font-display font-bold text-2xl tracking-tight">TACT</h1>
+          <h1 className="font-display font-bold text-2xl tracking-tight">AI TACT</h1>
         </div>
         <div className="text-sm text-yellow-400 font-semibold tracking-widest uppercase flex items-center gap-2">
            <Sparkles className="w-4 h-4" /> Power Mode (Free)
@@ -147,7 +147,7 @@ export default function TactApp() {
               </span> messages.
             </h2>
             <p className="text-white/60 text-lg md:text-xl max-w-2xl font-light">
-              Don't let a misunderstood tone ruin a deal. Paste your message, add your personal vibe, and let AI fix it instantly.
+              Don't let a misunderstood tone ruin a deal. Paste your message, add your personal vibe, and let AI TACT fix it instantly.
             </p>
           </div>
 
@@ -234,7 +234,9 @@ export default function TactApp() {
                         />
                         <span className="text-xs text-white/60 font-mono w-8">{maxTokens}</span>
                      </div>
-                     <span className="text-xs text-white/30 font-mono">{text.length} chars</span>
+                     <span className="text-xs text-white/30 font-mono">
+                       {text.trim().split(/\s+/).filter(w => w.length > 0).length} words | {text.length} chars
+                     </span>
                   </div>
 
                 </div>
@@ -250,6 +252,12 @@ export default function TactApp() {
                     <button onClick={() => toggleTone(tone)} className="hover:bg-purple-500/30 rounded-full p-0.5"><X className="w-3 h-3 hover:text-white" /></button>
                   </span>
                 ))}
+                <button 
+                  onClick={() => setSelectedTones([])}
+                  className="text-xs text-white/40 hover:text-white mx-2 underline decoration-white/20 underline-offset-2"
+                >
+                  Clear all
+                </button>
               </div>
             )}
 
@@ -273,20 +281,33 @@ export default function TactApp() {
                 </div>
               </div>
 
-              <button
-                onClick={handleAudit}
-                disabled={isAuditing || !text.trim()}
-                className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isAuditing ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Analyzing...
-                  </>
-                ) : (
-                  'Audit Message'
-                )}
-              </button>
+              <div className="flex items-center gap-4 w-full sm:w-auto">
+                <button
+                  onClick={() => {
+                    setText('');
+                    setCurrentAudit(null);
+                  }}
+                  disabled={isAuditing || !text.trim()}
+                  className="bg-white/5 hover:bg-white/10 text-white px-4 py-4 rounded-full font-medium text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  title="Clear Text"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={handleAudit}
+                  disabled={isAuditing || !text.trim()}
+                  className="flex-1 sm:flex-none bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isAuditing ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Analyzing...
+                    </>
+                  ) : (
+                    'Audit Message'
+                  )}
+                </button>
+              </div>
             </div>
             
             {error && (

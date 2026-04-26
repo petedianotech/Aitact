@@ -45,7 +45,7 @@ Do not include any markdown formatting, backticks, or extra text before or after
         "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "llama3.1-70b",
+        model: "llama3.1-8b",
         messages: [
           { role: "system", content: "You are a specialized JSON-only output assistant." },
           { role: "user", content: prompt }
